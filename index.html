@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>For You ❤️</title>
+
   <style>
     * {
       margin: 0;
@@ -11,7 +12,7 @@
       box-sizing: border-box;
       font-family: 'Georgia', serif;
     }
-    
+
     body {
       height: 100vh;
       background: radial-gradient(circle at top, #1a1a2e, #0a0a15);
@@ -23,153 +24,139 @@
       overflow: hidden;
       position: relative;
     }
-    
-    /* Starry background */
+
+    /* Stars */
     .stars {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       pointer-events: none;
     }
-    
+
     .star {
       position: absolute;
       background: white;
       border-radius: 50%;
       animation: twinkle 3s infinite ease-in-out;
     }
-    
+
     @keyframes twinkle {
-      0%, 100% { opacity: 0.3; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.2); }
+      0%,100% { opacity: 0.3; }
+      50% { opacity: 1; }
     }
-    
-    /* Floating hearts */
+
+    /* Hearts (soft, one-time) */
     .heart {
       position: fixed;
-      font-size: 20px;
-      animation: float 6s infinite ease-in;
+      font-size: 18px;
+      animation: float 10s ease-in-out;
       opacity: 0;
       pointer-events: none;
     }
-    
+
     @keyframes float {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 0.8;
-      }
-      90% {
-        opacity: 0.8;
-      }
-      100% {
-        transform: translateY(-100px) rotate(360deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(100vh); opacity: 0; }
+      20% { opacity: 0.7; }
+      90% { opacity: 0.7; }
+      100% { transform: translateY(-120px); opacity: 0; }
     }
-    
+
+    /* Petals */
+    .petal {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: rgba(255,107,157,0.5);
+      border-radius: 50% 0 50% 0;
+      animation: fall 12s ease-in-out;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
     .container {
-      padding: 20px;
       max-width: 500px;
+      padding: 20px;
       z-index: 10;
-      position: relative;
     }
-    
+
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-      background: linear-gradient(45deg, #ff6b9d, #ffa5c6, #ff6b9d);
-      background-size: 200% 200%;
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 3s ease infinite;
-    }
-    
+  font-size: 2.3rem;
+  margin-bottom: 15px;
+
+  /* fallback color */
+  color: #ff9bbf;
+
+  background: linear-gradient(45deg, #ff6b9d, #ffa5c6, #ff6b9d);
+  background-size: 200% 200%;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: gradientShift 3s infinite;
+}
+
+
     @keyframes gradientShift {
-      0%, 100% { background-position: 0% 50%; }
+      0%,100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
     }
-    
+
     #timer {
-      font-size: 3rem;
+      font-size: clamp(2rem, 6vw, 3rem);
       font-weight: bold;
-      margin-top: 20px;
-      text-shadow: 0 0 20px rgba(255, 107, 157, 0.5);
+      text-shadow: 0 0 12px rgba(255,107,157,0.4);
     }
-    
+
+    #countdown {
+  animation: pulse 2s ease-in-out infinite;
+    }
     p {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       line-height: 1.8;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-      margin: 5px 0;
+      margin: 10px 0;
     }
-    
-    .message-content {
-      margin: 20px 0;
-    }
-    
+
     .message-line {
       opacity: 0;
       transform: translateY(20px);
-      animation: fadeInLine 1s ease-in-out forwards;
+      animation: reveal 1s forwards;
     }
-    
+
     .message-line:nth-child(1) { animation-delay: 0.3s; }
     .message-line:nth-child(2) { animation-delay: 0.6s; }
-    .message-line:nth-child(4) { animation-delay: 0.9s; }
-    .message-line:nth-child(5) { animation-delay: 1.2s; }
-    .message-line:nth-child(6) { animation-delay: 1.5s; }
-    .message-line:nth-child(8) { animation-delay: 1.8s; }
-    .message-line:nth-child(9) { animation-delay: 2.1s; }
-    .message-line:nth-child(10) { animation-delay: 2.4s; }
-    .message-line:nth-child(11) { animation-delay: 2.7s; }
-    
-    @keyframes fadeInLine {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .message-line:nth-child(3) { animation-delay: 0.9s; }
+    .message-line:nth-child(4) { animation-delay: 1.2s; }
+    .message-line:nth-child(5) { animation-delay: 1.5s; }
+    .message-line:nth-child(6) { animation-delay: 1.8s; }
+    .message-line:nth-child(7) { animation-delay: 2.1s; }
+    .message-line:nth-child(8) { animation-delay: 2.4s; }
+    .message-line:nth-child(9) { animation-delay: 2.7s; }
+
+    @keyframes reveal {
+      to { opacity: 1; transform: translateY(0); }
     }
-    
+
     .signature {
-      display: block;
       margin-top: 30px;
       font-style: italic;
       opacity: 0;
-      animation: fadeIn 1s ease-in-out 2.8s forwards;
-      font-size: 1.1rem;
+      animation: fadeIn 1s 3s forwards;
+      letter-spacing: 0.5px;
     }
-    
-    .hidden {
-      display: none;
-    }
-    
-    #message {
-      animation: messageAppear 2s ease-in-out forwards;
-    }
-    
-    @keyframes messageAppear {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    
+
     @keyframes fadeIn {
       to { opacity: 1; }
     }
-    
-    /* Fireworks */
+
+    .hidden { display: none; }
+
     .firework {
       position: fixed;
       width: 4px;
@@ -177,206 +164,147 @@
       border-radius: 50%;
       pointer-events: none;
     }
-    
-    @keyframes fireworkExplosion {
-      0% {
-        transform: translate(0, 0);
-        opacity: 1;
-      }
-      100% {
+
+    @keyframes explode {
+      to {
         transform: translate(var(--x), var(--y));
-        opacity: 0;
-      }
-    }
-    
-    /* Glow effect */
-    .glow {
-      text-shadow: 0 0 10px rgba(255, 107, 157, 0.8),
-                   0 0 20px rgba(255, 107, 157, 0.6),
-                   0 0 30px rgba(255, 107, 157, 0.4);
-    }
-    
-    /* Countdown styling */
-    #countdown {
-      animation: pulse 2s ease-in-out infinite;
-    }
-    
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-    
-    /* Rose petals */
-    .petal {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      background: rgba(255, 107, 157, 0.6);
-      border-radius: 50% 0 50% 0;
-      animation: fall linear infinite;
-      pointer-events: none;
-      opacity: 0;
-    }
-    
-    @keyframes fall {
-      0% {
-        transform: translateY(-100px) rotate(0deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
         opacity: 0;
       }
     }
   </style>
 </head>
+
 <body>
-  <div class="stars" id="stars"></div>
-  
-  <div class="container">
-    <div id="countdown">
-      <h1 class="glow">Almost there…</h1>
-      <p id="timer"></p>
-    </div>
-    
-    <div id="message" class="hidden">
-      <h1 class="glow">Happy New Year, My MOMO ❤️</h1>
-      <div class="message-content">
-        <p class="message-line">As the clock strikes midnight,</p>
-        <p class="message-line">I just want you to know—</p>
-        <br>
-        <p class="message-line">You are my favorite beginning,</p>
-        <p class="message-line">my safest place,</p>
-        <p class="message-line">and my forever wish.</p>
-        <br>
-        <p class="message-line">সোহাগে আদরে রাখবো মাইরি😁🫶🏻</p>
-        <p class="message-line">2019  থেকে একসাথে চলছি, আজ  2026 এর প্রথম দিন। এখনো অনেক পথ চলা বাকি আছে। হাত টা দাও আর চলো 😒 বেশি রোমান্টিক হওয়া যাবে না কিছুটা সামনে যাওয়া পর্যন্ত জমিয়ে রাখি।✨</p>
-        <p class="message-line">“Tum meri aadat nahi✨, tum meri kahani ho.”🥹</p>
-        <p class="message-line">“2019 → 2026 → ∞ Always you🥺❤️.”</p>
-      </div>
-      <p class="signature">— তোর , Always</p>
-    </div>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+  <div id="countdown">
+    <h1>Almost there…</h1>
+    <p id="timer"></p>
   </div>
 
-  <script>
-    const countdownDiv = document.getElementById("countdown");
-    const messageDiv = document.getElementById("message");
-    const timer = document.getElementById("timer");
-    const targetDate = new Date("January 1, 2026 00:00:00").getTime();
-    
-    // Create stars
-    function createStars() {
-      const starsContainer = document.getElementById("stars");
-      for (let i = 0; i < 100; i++) {
-        const star = document.createElement("div");
-        star.className = "star";
-        star.style.width = Math.random() * 3 + "px";
-        star.style.height = star.style.width;
-        star.style.left = Math.random() * 100 + "%";
-        star.style.top = Math.random() * 100 + "%";
-        star.style.animationDelay = Math.random() * 3 + "s";
-        starsContainer.appendChild(star);
+  <div id="message" class="hidden">
+    <h1>Happy New Year, My MOMO ❤️</h1>
+
+    <div>
+      <p class="message-line">As the clock strikes midnight,</p>
+      <p class="message-line">I just want you to know—</p>
+      <p class="message-line">You are my favorite beginning,</p>
+      <p class="message-line">my safest place,</p>
+      <p class="message-line">and my forever wish.</p>
+      <p class="message-line">সোহাগে আদরে রাখবো, মাইরি 🤍</p>
+      <p class="message-line">2019 থেকে একসাথে চলছি, আজ 2026 এর প্রথম দিন।</p>
+      <p class="message-line">এখনো অনেক পথ বাকি — হাতটা দাও, আর চলো।</p>
+      <p class="message-line">2019 → 2026 → ∞ Always you.</p>
+    </div>
+
+    <p class="signature">— তোর, Always</p>
+  </div>
+</div>
+
+<script>
+  const targetDate = new Date("January 1, 2026 00:00:00").getTime();
+  const timer = document.getElementById("timer");
+  const countdown = document.getElementById("countdown");
+  const message = document.getElementById("message");
+
+  let celebrationStarted = false;
+
+  function createStars() {
+    const stars = document.getElementById("stars");
+    for (let i = 0; i < 90; i++) {
+      const s = document.createElement("div");
+      s.className = "star";
+      const size = Math.random() * 2 + 1;
+      s.style.width = size + "px";
+      s.style.height = size + "px";
+      s.style.left = Math.random() * 100 + "%";
+      s.style.top = Math.random() * 100 + "%";
+      stars.appendChild(s);
+    }
+  }
+
+  function heart() {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.textContent = "❤️";
+    h.style.left = Math.random() * 100 + "%";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 10000);
+  }
+
+  function petal() {
+    const p = document.createElement("div");
+    p.className = "petal";
+    p.style.left = Math.random() * 100 + "%";
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 12000);
+  }
+
+  function firework(x, y) {
+    for (let i = 0; i < 18; i++) {
+      const f = document.createElement("div");
+      f.className = "firework";
+      f.style.left = x + "px";
+      f.style.top = y + "px";
+      f.style.background = "#ff6b9d";
+      const angle = Math.random() * Math.PI * 2;
+      const dist = Math.random() * 60 + 20;
+      f.style.setProperty("--x", Math.cos(angle) * dist + "px");
+      f.style.setProperty("--y", Math.sin(angle) * dist + "px");
+      f.style.animation = "explode 1s forwards";
+      document.body.appendChild(f);
+      setTimeout(() => f.remove(), 1000);
+    }
+  }
+
+  function update() {
+    const now = Date.now();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      if (!celebrationStarted) {
+        celebrationStarted = true;
+        countdown.style.display = "none";
+        message.classList.remove("hidden");
+
+        // gentle fireworks (once)
+        for (let i = 0; i < 3; i++) {
+          setTimeout(() => {
+            firework(Math.random() * innerWidth, Math.random() * innerHeight * 0.4);
+          }, i * 400);
+        }
+
+        // soft hearts (max 8)
+        let hc = 0;
+        const hi = setInterval(() => {
+          heart();
+          hc++;
+          if (hc >= 8) clearInterval(hi);
+        }, 1200);
+
+        // soft petals (max 6)
+        let pc = 0;
+        const pi = setInterval(() => {
+          petal();
+          pc++;
+          if (pc >= 6) clearInterval(pi);
+        }, 1500);
       }
+      return;
     }
-    
-    // Create floating hearts
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.textContent = "❤️";
-      heart.style.left = Math.random() * 100 + "%";
-      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-      heart.style.fontSize = (Math.random() * 10 + 15) + "px";
-      document.body.appendChild(heart);
-      
-      setTimeout(() => heart.remove(), 6000);
-    }
-    
-    // Create rose petals
-    function createPetal() {
-      const petal = document.createElement("div");
-      petal.className = "petal";
-      petal.style.left = Math.random() * 100 + "%";
-      petal.style.animationDuration = (Math.random() * 3 + 5) + "s";
-      petal.style.animationDelay = Math.random() * 2 + "s";
-      document.body.appendChild(petal);
-      
-      setTimeout(() => petal.remove(), 10000);
-    }
-    
-    // Create fireworks
-    function createFirework(x, y) {
-      const colors = ["#ff6b9d", "#ffa5c6", "#ffdd00", "#00ddff", "#ff00ff"];
-      const particleCount = 30;
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement("div");
-        particle.className = "firework";
-        particle.style.left = x + "px";
-        particle.style.top = y + "px";
-        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        
-        const angle = (Math.PI * 2 * i) / particleCount;
-        const velocity = 50 + Math.random() * 50;
-        const xVel = Math.cos(angle) * velocity;
-        const yVel = Math.sin(angle) * velocity;
-        
-        particle.style.setProperty("--x", xVel + "px");
-        particle.style.setProperty("--y", yVel + "px");
-        particle.style.animation = "fireworkExplosion 1s ease-out forwards";
-        
-        document.body.appendChild(particle);
-        setTimeout(() => particle.remove(), 1000);
-      }
-    }
-    
-    // Launch random fireworks
-    function launchFireworks() {
-      for (let i = 0; i < 5; i++) {
-        setTimeout(() => {
-          const x = Math.random() * window.innerWidth;
-          const y = Math.random() * window.innerHeight * 0.5;
-          createFirework(x, y);
-        }, i * 300);
-      }
-    }
-    
-    // Update countdown
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
-      
-      if (diff <= 0) {
-        countdownDiv.style.display = "none";
-        messageDiv.classList.remove("hidden");
-        launchFireworks();
-        
-        // Continue hearts and petals after message appears
-        setInterval(createHeart, 800);
-        setInterval(createPetal, 600);
-        return;
-      }
-      
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      
-      timer.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
-    }
-    
-    // Initialize
-    createStars();
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-    
-    // Add occasional hearts during countdown
-    setInterval(createHeart, 2000);
-  </script>
+
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    timer.textContent = `${h}h ${m}m ${s}s`;
+  }
+
+  createStars();
+  setInterval(update, 1000);
+  update();
+</script>
+
 </body>
 </html>
